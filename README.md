@@ -11,7 +11,7 @@ Microsoft VSCode 1.45.1 </br>
 Codificação: -&lowast;- coding: utf-8 -&lowast;- </br>
 pt-BR </br> 
 
-![news-view](https://github.com/alpdias/calendario-economico-python-bot/blob/master/img/news-view.png)
+![news-view](https://github.com/alpdias/calendario-economico-python-bot-public/blob/master/img/news-view.png)
 
 <strong>Módulos Python</strong>
 
@@ -36,7 +36,7 @@ Microsoft VSCode 1.45.1 </br>
 Coding: -&lowast;- coding: utf-8 -&lowast;- </br>
 pt-BR </br>
 
-![news-view](https://github.com/alpdias/calendario-economico-python-bot/blob/master/img/news-view.png)
+![news-view](https://github.com/alpdias/calendario-economico-python-bot-public/blob/master/img/news-view.png)
 
 <strong>Python modules</strong>
 
