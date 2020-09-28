@@ -12,6 +12,8 @@ from time import sleep
 import arrow 
 import requests
 from bs4 import BeautifulSoup
+from pathlib import Path
+from .secret import *
 
 # bibliotecas para a API do telegram 'telepot' https://github.com/nickoala/telepot
 import telepot
@@ -20,11 +22,11 @@ from telepot.namedtuple import InlineKeyboardMarkup, InlineKeyboardButton
 # bibliotecas complementares
 import emoji
 
-token = '' # token de acesso
+token = secret.token # token de acesso
 
-usuario =  # numero inteiro (Telegram ID user)
+usuario = secret.user # numero inteiro (Telegram ID user)
 
-channelID =  # numero inteiro (Telegram ID channel)
+channelID = secret.channel # numero inteiro (Telegram ID channel)
 
 bot = telepot.Bot(token) # telegram bot
 
