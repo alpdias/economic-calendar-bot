@@ -22,11 +22,11 @@ from telepot.namedtuple import InlineKeyboardMarkup, InlineKeyboardButton
 # bibliotecas complementares
 import emoji
 
-token = secret.token # token de acesso
+token = token # token de acesso
 
-usuario = secret.user # numero inteiro (Telegram ID user)
+usuario = user # numero inteiro (Telegram ID user)
 
-channelID = secret.channel # numero inteiro (Telegram ID channel)
+channelID = channel # numero inteiro (Telegram ID channel)
 
 bot = telepot.Bot(token) # telegram bot
 
