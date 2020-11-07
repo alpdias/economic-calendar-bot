@@ -81,12 +81,14 @@ def calendario(url): # funçao para obter as noticas do calendario economico a p
 
 
 def enviarMensagens(msgID, texto, botao=''): # funçao para enviar as mensagens atravez do bot
+    
     bot.sendChatAction(msgID, 'typing') # mostra a açao de 'escrever' no chat
     sleep(1)
     bot.sendMessage(msgID, texto, reply_markup=botao, disable_notification=False) # retorna uma mensagem pelo ID da conversa + um texto + um botao
 
 
 def receberMensagens(msg): # funçao para buscar as mensagens recebidas pelo bot e executar os comandos
+    
     msgID = msg['chat']['id'] # variavel para receber o ID da conversa
     nome = msg['chat']['first_name'] # variavel para receber o nome do usuario que enviou a msg
     botao = '' # variavel para receber o botao a ser enviado dentro da interface do telegram
@@ -114,6 +116,7 @@ em contato com meu desenvolvedor :backhand_index_pointing_down:', use_aliases=Tr
 
 
 def responderMensagens(msg): # funçao para interagir com os botoes do bot dentro do telegram
+    
     msgID, respostaID, resposta = telepot.glance(msg, flavor='callback_query') # variaveis que recebem o 'callback query' da resposta (necessario 3 variaveis, o ID da conversa e o da resposta sao diferentes)
     
     if resposta == 'atualizar':
