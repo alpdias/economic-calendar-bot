@@ -23,33 +23,28 @@ from telepot.namedtuple import InlineKeyboardMarkup, InlineKeyboardButton
 import emoji
 
 token = token # token de acesso
-
 usuario = user # numero inteiro (Telegram ID user)
-
 channelID = channel # numero inteiro (Telegram ID channel)
 
 bot = telepot.Bot(token) # telegram bot
 
-def calendario(url): # funçao para obter as noticas do calendario economico a partir de um webscraping e tratando o html
+def calendario(url): 
+    
+    """
+    -> Funçao para obter as noticas do calendario economico a partir de um webscraping e tratando o html
+    """
 
     url = url # site utilizado no webscraping
-
     cabecalho = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.76 Safari/537.36'} # cabecalho para obter a requisicao do site (site só aceita acesso por navegador(simulação))
-
     requisicao = requests.get(url, headers=cabecalho) # requisicao dentro do site
-
     soup = BeautifulSoup(requisicao.text, 'html.parser') # tratamento do html com o modulo 'bs4'
-
     tabela = soup.find('table', {'id': 'economicCalendarData'}) # apenas a tabela com o id especifico
-
     corpo = tabela.find('tbody') # apenas o corpo da tabela
-
     linhas = corpo.findAll('tr', {'class': 'js-event-item'}) # apenas as linhas da tabela
 
     calendario = [] # lista para as noticias
     
     for tr in linhas:
-
         horario = tr.attrs['data-event-datetime'] # separando o horario da noticia pela tag html 'data-event-datetime'
         horario = arrow.get(horario, 'YYYY/MM/DD HH:mm:ss').timestamp # converter uma string de horario em um formato aceito pelo python
         horario = datetime.utcfromtimestamp(horario).strftime('%H:%M')
@@ -80,14 +75,24 @@ def calendario(url): # funçao para obter as noticas do calendario economico a p
     return calendario # retorna a lista com as noticias
 
 
-def enviarMensagens(msgID, texto, botao=''): # funçao para enviar as mensagens atravez do bot
+def enviarMensagens(msgID, texto, botao=''): 
+    
+    """
+    -> Funçao para enviar as mensagens atravez do bot
+    """
     
     bot.sendChatAction(msgID, 'typing') # mostra a açao de 'escrever' no chat
+    
     sleep(1)
+    
     bot.sendMessage(msgID, texto, reply_markup=botao, disable_notification=False) # retorna uma mensagem pelo ID da conversa + um texto + um botao
 
 
-def receberMensagens(msg): # funçao para buscar as mensagens recebidas pelo bot e executar os comandos
+def receberMensagens(msg): 
+    
+    """
+    -> Funçao para buscar as mensagens recebidas pelo bot e executar os comandos
+    """
     
     msgID = msg['chat']['id'] # variavel para receber o ID da conversa
     nome = msg['chat']['first_name'] # variavel para receber o nome do usuario que enviou a msg
@@ -115,26 +120,31 @@ em contato com meu desenvolvedor :backhand_index_pointing_down:', use_aliases=Tr
         enviarMensagens(msgID, info, botao)
 
 
-def responderMensagens(msg): # funçao para interagir com os botoes do bot dentro do telegram
+def responderMensagens(msg): 
+    
+    """
+    -> Funçao para interagir com os botoes do bot dentro do telegram
+    """
     
     msgID, respostaID, resposta = telepot.glance(msg, flavor='callback_query') # variaveis que recebem o 'callback query' da resposta (necessario 3 variaveis, o ID da conversa e o da resposta sao diferentes)
     
     if resposta == 'atualizar':
-        
         try:
             bot.answerCallbackQuery(msgID, text=(emoji.emojize('Atualizando... :globe_with_meridians:', use_aliases=True))) # mostra um texto/alerta na tela do chat
             sleep(2)
+            
             dados = calendario('https://br.investing.com/economic-calendar/')
+            
             atualizado = (emoji.emojize('Atualizado com sucesso :thumbs_up:', use_aliases=True))
             enviarMensagens(respostaID, atualizado)
+            
             trabalhando = (emoji.emojize('Enviando notícias :man_technologist:', use_aliases=True))
             enviarMensagens(respostaID, trabalhando)
 
             quantidade = (len(dados) / 6) # quantidade de noticias
 
-            while True:
-
-                # mostra o horario atual da maquina para verificar junto com o horario da noticia (adicionado correçao de fuso horario)
+            while True: # mostra o horario atual da maquina para verificar junto com o horario da noticia (adicionado correçao de fuso horario)
+                
                 fuso = timedelta(hours=-3)
                 zona = timezone(fuso)
                 agora = datetime.now()
@@ -153,7 +163,7 @@ def responderMensagens(msg): # funçao para interagir com os botoes do bot dentr
 
                 local = dados[2] # dado especifico para o pais da noticia
 
-                # adiçao do emoji da bandeira do local
+                # adiçao do emoji da bandeira do local -->
                 if local == 'Argentina':
                     bandeira = (emoji.emojize('\U0001F1E6\U0001F1F7', use_aliases=True))
 
@@ -249,7 +259,8 @@ def responderMensagens(msg): # funçao para interagir com os botoes do bot dentr
 
                 else:
                     bandeira = (emoji.emojize(':globe_showing_Americas:', use_aliases=True))
-
+                # adiçao do emoji da bandeira do local <--
+                
                 impacto = dados[3] # dado especifico para o impacto da noticia
                 impacto = (emoji.emojize(int(impacto) * f':cow_face:', use_aliases=True)) # transformando dado em emoji
                 link = dados[4] # dado especifico para o link da noticia
@@ -339,9 +350,8 @@ def responderMensagens(msg): # funçao para interagir com os botoes do bot dentr
 
             quantidade = (len(dados) / 6) # quantidade de noticias
 
-            while True:
-
-                # mostra o horario atual da maquina para verificar junto com o horario da noticia (adicionado correçao de fuso horario)
+            while True: # mostra o horario atual da maquina para verificar junto com o horario da noticia (adicionado correçao de fuso horario)
+                
                 fuso = timedelta(hours=-3)
                 zona = timezone(fuso)
                 agora = datetime.now()
@@ -360,7 +370,7 @@ def responderMensagens(msg): # funçao para interagir com os botoes do bot dentr
 
                 local = dados[2] # dado especifico para o pais da noticia
 
-                # adiçao do emoji da bandeira do local
+                # adiçao do emoji da bandeira do local -->
                 if local == 'Argentina':
                     bandeira = (emoji.emojize('\U0001F1E6\U0001F1F7', use_aliases=True))
 
@@ -456,7 +466,8 @@ def responderMensagens(msg): # funçao para interagir com os botoes do bot dentr
 
                 else:
                     bandeira = (emoji.emojize(':globe_showing_Americas:', use_aliases=True))
-
+                # adiçao do emoji da bandeira do local <--
+                
                 impacto = dados[3] # dado especifico para o impacto da noticia
                 impacto = (emoji.emojize(int(impacto) * f':cow_face:', use_aliases=True)) # transformando dado em emoji
                 link = dados[4] # dado especifico para o link da noticia
@@ -529,9 +540,8 @@ def responderMensagens(msg): # funçao para interagir com os botoes do bot dentr
 
             quantidade = (len(dados) / 6) # quantidade de noticias
 
-            while True:
+            while True: # mostra o horario atual da maquina para verificar junto com o horario da noticia (adicionado correçao de fuso horario)
 
-                # mostra o horario atual da maquina para verificar junto com o horario da noticia (adicionado correçao de fuso horario)
                 fuso = timedelta(hours=-3)
                 zona = timezone(fuso)
                 agora = datetime.now()
@@ -550,7 +560,7 @@ def responderMensagens(msg): # funçao para interagir com os botoes do bot dentr
 
                 local = dados[2] # dado especifico para o pais da noticia
 
-                # adiçao do emoji da bandeira do local
+                # adiçao do emoji da bandeira do local -->
                 if local == 'Argentina':
                     bandeira = (emoji.emojize('\U0001F1E6\U0001F1F7', use_aliases=True))
 
@@ -646,6 +656,7 @@ def responderMensagens(msg): # funçao para interagir com os botoes do bot dentr
 
                 else:
                     bandeira = (emoji.emojize(':globe_showing_Americas:', use_aliases=True))
+                # adiçao do emoji da bandeira do local <--
 
                 impacto = dados[3] # dado especifico para o impacto da noticia
                 impacto = (emoji.emojize(int(impacto) * f':cow_face:', use_aliases=True)) # transformando dado em emoji
@@ -705,7 +716,6 @@ def responderMensagens(msg): # funçao para interagir com os botoes do bot dentr
         while True:
 
             if quantidade == 0:
-
                 # mostra o horario atual da maquina para verificar junto com o horario da noticia (adicionado correçao de fuso horario)
                 fuso = timedelta(hours=-3)
                 zona = timezone(fuso)
@@ -738,9 +748,9 @@ def responderMensagens(msg): # funçao para interagir com os botoes do bot dentr
 
                     quantidade = (len(dados) / 6) # quantidade de noticias
 
-                    while True:
+                    while True: # mostra o horario atual da maquina para verificar junto com o horario da noticia (adicionado correçao de fuso horario)
 
-                        # mostra o horario atual da maquina para verificar junto com o horario da noticia (adicionado correçao de fuso horario)
+                        
                         fuso = timedelta(hours=-3)
                         zona = timezone(fuso)
                         agora = datetime.now()
@@ -759,7 +769,7 @@ def responderMensagens(msg): # funçao para interagir com os botoes do bot dentr
 
                         local = dados[2] # dado especifico para o pais da noticia
 
-                        # adiçao do emoji da bandeira do local
+                        # adiçao do emoji da bandeira do local -->
                         if local == 'Argentina':
                             bandeira = (emoji.emojize('\U0001F1E6\U0001F1F7', use_aliases=True))
 
@@ -855,6 +865,7 @@ def responderMensagens(msg): # funçao para interagir com os botoes do bot dentr
 
                         else:
                             bandeira = (emoji.emojize(':globe_showing_Americas:', use_aliases=True))
+                        # adiçao do emoji da bandeira do local <--
 
                         impacto = dados[3] # dado especifico para o impacto da noticia
                         impacto = (emoji.emojize(int(impacto) * f':cow_face:', use_aliases=True)) # transformando dado em emoji
@@ -917,9 +928,9 @@ def responderMensagens(msg): # funçao para interagir com os botoes do bot dentr
     else:
         pass
 
-# loop do modulo 'telepot' para procurar e receber novas mensagens, executando as funçoes
+### loop do modulo 'telepot' para procurar e receber novas mensagens, executando as funçoes ###
 bot.message_loop({'chat': receberMensagens, 'callback_query': responderMensagens}) 
 
-# loop em python para manter o programa rodando
+### loop em python para manter o programa rodando ###
 while True:
     pass
