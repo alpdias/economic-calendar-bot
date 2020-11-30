@@ -7,7 +7,6 @@ Python bot usando WebScraping para obter as notícias do calendário econômico 
 Andamento -> <strong>100%</strong> - Offline
 
 Python 3.8.1 </br>
-Microsoft VSCode 1.45.1 </br>
 Codificação: -&lowast;- coding: utf-8 -&lowast;- </br>
 pt-BR </br> 
 
@@ -32,7 +31,6 @@ Python bot using WebScraping to get news from the economic calendar of the site 
 Progress -> <strong>100%</strong> - Offline
 
 Python 3.8.1 </br>
-Microsoft VSCode 1.45.1 </br>
 Coding: -&lowast;- coding: utf-8 -&lowast;- </br>
 pt-BR </br>
 
