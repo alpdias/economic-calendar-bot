@@ -34,7 +34,7 @@ def calendario(url):
     -> Funçao para obter as noticas do calendario economico a partir de um webscraping e tratando o html
     """
 
-    url = url # site utilizado no webscraping
+    url = 'https://br.investing.com/economic-calendar/' # site utilizado no webscraping
     cabecalho = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.76 Safari/537.36'} # cabecalho para obter a requisicao do site (site só aceita acesso por navegador(simulação))
     requisicao = requests.get(url, headers=cabecalho) # requisicao dentro do site
     soup = BeautifulSoup(requisicao.text, 'html.parser') # tratamento do html com o modulo 'bs4'
