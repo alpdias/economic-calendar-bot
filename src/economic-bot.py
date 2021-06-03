@@ -13,7 +13,7 @@ import arrow
 import requests
 from bs4 import BeautifulSoup
 from pathlib import Path
-from .secret import economicCalendar
+from secret import economicCalendar
 # bibliotecas para a API do telegram 'telepot' https://github.com/nickoala/telepot
 import telepot
 from telepot.namedtuple import InlineKeyboardMarkup, InlineKeyboardButton
@@ -21,9 +21,9 @@ from telepot.namedtuple import InlineKeyboardMarkup, InlineKeyboardButton
 # bibliotecas complementares
 import emoji
 
-token = token # token de acesso
-usuario = user # numero inteiro (Telegram ID user)
-channelID = channel # numero inteiro (Telegram ID channel)
+token = economicCalendar.token() # token de acesso
+usuario = economicCalendar.user() # numero inteiro (Telegram ID user)
+channelID = economicCalendar.channel() # numero inteiro (Telegram ID channel)
 
 bot = telepot.Bot(token) # telegram bot
 
@@ -711,7 +711,7 @@ def responderMensagens(msg):
         except:
             desatualizado = (emoji.emojize('Erro inesperado ao atualizar! :pensive_face:', use_aliases=True)) # msg de erro na atualizaçao
             enviarMensagens(respostaID, desatualizado)
-       
+
         while True:
 
             if quantidade == 0:
