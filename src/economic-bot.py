@@ -13,8 +13,7 @@ import arrow
 import requests
 from bs4 import BeautifulSoup
 from pathlib import Path
-from .secret import *
-
+from .secret import economicCalendar
 # bibliotecas para a API do telegram 'telepot' https://github.com/nickoala/telepot
 import telepot
 from telepot.namedtuple import InlineKeyboardMarkup, InlineKeyboardButton
