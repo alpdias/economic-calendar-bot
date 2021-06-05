@@ -45,14 +45,25 @@ def calendario(url):
     
     for tr in linhas:
         horario = tr.attrs['data-event-datetime'] # separando o horario da noticia pela tag html 'data-event-datetime'
+        horario = arrow.get(horario, 'YYYY/MM/DD HH:mm:ss') # converter uma string de horario em um formato aceito pelo python
+        """
+        -> funções desatualizadas
+
         horario = arrow.get(horario, 'YYYY/MM/DD HH:mm:ss').timestamp # converter uma string de horario em um formato aceito pelo python
         horario = datetime.utcfromtimestamp(horario).strftime('%H:%M')
+        """
+        horario = horario.strftime('%H:%M')
         calendario.append(horario)
 
         horario = tr.attrs['data-event-datetime'] # separando o horario da noticia pela tag html 'data-event-datetime'
+        """
+        -> funções desatualizadas
+
         horario = arrow.get(horario, 'YYYY/MM/DD HH:mm:ss').timestamp # converter uma string de horario em um formato aceito pelo python
-        horas = (int(datetime.utcfromtimestamp(horario).strftime('%H')) * 60)
-        minutos = int(datetime.utcfromtimestamp(horario).strftime('%M'))
+        """
+        horario = arrow.get(horario, 'YYYY/MM/DD HH:mm:ss') # converter uma string de horario em um formato aceito pelo python
+        horas = (int(horario.strftime('%H')) * 60)
+        minutos = int(horario.strftime('%M'))
         verificacao = horas + minutos # horario em minutos para verrificar o tempo em minutos para envio da noticia
         calendario.append(verificacao)
 
