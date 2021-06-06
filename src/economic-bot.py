@@ -13,7 +13,7 @@ import arrow
 import requests
 from bs4 import BeautifulSoup
 from pathlib import Path
-from secret import economicCalendar
+from secret import economiCalendar
 # bibliotecas para a API do telegram 'telepot' https://github.com/nickoala/telepot
 import telepot
 from telepot.namedtuple import InlineKeyboardMarkup, InlineKeyboardButton
@@ -21,9 +21,9 @@ from telepot.namedtuple import InlineKeyboardMarkup, InlineKeyboardButton
 # bibliotecas complementares
 import emoji
 
-token = economicCalendar.token() # token de acesso
-usuario = economicCalendar.user() # numero inteiro (Telegram ID user)
-channelID = economicCalendar.channel() # numero inteiro (Telegram ID channel)
+token = economiCalendar.token() # token de acesso
+usuario = economiCalendar.user() # numero inteiro (Telegram ID user)
+channelID = economiCalendar.channel() # numero inteiro (Telegram ID channel)
 
 bot = telepot.Bot(token) # telegram bot
 
