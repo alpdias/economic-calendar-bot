@@ -2,9 +2,9 @@
 
 Python bot usando WebScraping para obter as notícias do calendário econômico do site https://br.investing.com/economic-calendar/ e enviar em um canal do telegram automaticamente de acordo com o horário em que a notícia acontece.
 
-<strong>Canal Telegram:</strong> Calendário Econômico 🗓 (desativado)
+<strong>Canal Telegram:</strong> Calendário Econômico 🗓 https://t.me/economicalendarfx
 
-Andamento -> <strong>100%</strong> - Offline
+Andamento -> <strong>100%</strong> - Online
 
 Python 3.8.1 </br>
 Codificação: -&lowast;- coding: utf-8 -&lowast;- </br>
@@ -26,9 +26,9 @@ pt-BR </br>
 
 Python bot using WebScraping to get news from the economic calendar of the site https://br.investing.com/economic-calendar/ and send it on a telegram channel automatically according to the time the news happens.
 
-<strong>Telegram Channel:</strong> Calendário Econômico 🗓 (disabled)
+<strong>Telegram Channel:</strong> Calendário Econômico 🗓 https://t.me/economicalendarfx
 
-Progress -> <strong>100%</strong> - Offline
+Progress -> <strong>100%</strong> - Online
 
 Python 3.8.1 </br>
 Coding: -&lowast;- coding: utf-8 -&lowast;- </br>
