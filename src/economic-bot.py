@@ -55,21 +55,25 @@ def calendario(url):
     for tr in linhas:
         horario = tr.attrs['data-event-datetime'] # separando o horario da noticia pela tag html 'data-event-datetime'
         horario = arrow.get(horario, 'YYYY/MM/DD HH:mm:ss') # converter uma string de horario em um formato aceito pelo python
+
         """
         -> funções desatualizadas
 
         horario = arrow.get(horario, 'YYYY/MM/DD HH:mm:ss').timestamp # converter uma string de horario em um formato aceito pelo python
         horario = datetime.utcfromtimestamp(horario).strftime('%H:%M')
         """
+
         horario = horario.strftime('%H:%M')
         calendario.append(horario)
 
         horario = tr.attrs['data-event-datetime'] # separando o horario da noticia pela tag html 'data-event-datetime'
+
         """
         -> funções desatualizadas
 
         horario = arrow.get(horario, 'YYYY/MM/DD HH:mm:ss').timestamp # converter uma string de horario em um formato aceito pelo python
         """
+
         horario = arrow.get(horario, 'YYYY/MM/DD HH:mm:ss') # converter uma string de horario em um formato aceito pelo python
         horas = (int(horario.strftime('%H')) * 60)
         minutos = int(horario.strftime('%M'))
@@ -172,7 +176,7 @@ def responderMensagens(msg):
                 atual = ((correçao.hour * 60) + minutos)
                 
                 horario = dados[0] # dado especifico para o horario da noticia
-                verificacao = dados[1]# dado especifico para verificar o horario da noticia em minutos
+                verificacao = dados[1] # dado especifico para verificar o horario da noticia em minutos
 
                 if verificacao == 0:
                     verificacao = verificacao
@@ -355,12 +359,14 @@ def responderMensagens(msg):
         enviarMensagens(respostaID, atualizando)
 
         try:
+
             '''
             bot.answerCallbackQuery(usuario, text=(emoji.emojize('Atualizando... :globe_with_meridians:')))
 
             Requisição removida por causa do tempo de espera para a utilizaçao que o script necessita, a API retorna o erro:
             'Bad Request: query is too old and response timeout expired or query ID is invalid'
             '''
+
             dados = calendario('https://br.investing.com/economic-calendar/')
             atualizado = (emoji.emojize('Atualizado com sucesso :thumbs_up:'))
             enviarMensagens(respostaID, atualizado)
@@ -379,7 +385,7 @@ def responderMensagens(msg):
                 atual = ((correçao.hour * 60) + minutos)
                 
                 horario = dados[0] # dado especifico para o horario da noticia
-                verificacao = dados[1]# dado especifico para verificar o horario da noticia em minutos
+                verificacao = dados[1] # dado especifico para verificar o horario da noticia em minutos
 
                 if verificacao == 0:
                     verificacao = verificacao
@@ -569,7 +575,7 @@ def responderMensagens(msg):
                 atual = ((correçao.hour * 60) + minutos)
                 
                 horario = dados[0] # dado especifico para o horario da noticia
-                verificacao = dados[1]# dado especifico para verificar o horario da noticia em minutos
+                verificacao = dados[1] # dado especifico para verificar o horario da noticia em minutos
 
                 if verificacao == 0:
                     verificacao = verificacao
@@ -753,12 +759,14 @@ def responderMensagens(msg):
                 enviarMensagens(respostaID, atualizando)
 
                 try:
+
                     '''
                     bot.answerCallbackQuery(usuario, text=(emoji.emojize('Atualizando... :globe_with_meridians:')))
 
                     Requisição removida por causa do tempo de espera para a utilizaçao que o script necessita, a API retorna o erro:
                     'Bad Request: query is too old and response timeout expired or query ID is invalid'
                     '''
+                    
                     dados = calendario('https://br.investing.com/economic-calendar/')
                     atualizado = (emoji.emojize('Atualizado com sucesso :thumbs_up:'))
                     enviarMensagens(respostaID, atualizado)
